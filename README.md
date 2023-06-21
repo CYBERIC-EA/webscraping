@@ -1,4 +1,4 @@
-# webscraping
-using the python beautiful soup 4 module to search a website and retrieve its contents 
+# Webscraping
+Using the python beautiful soup 4 module to scrape all GPUs and their prices from the Newegg website and retrieve their contents. 
 
-This webscraper scrapes for a gpu of your specification on the newegg website 
+
