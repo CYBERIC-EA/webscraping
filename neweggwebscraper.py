@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-
+import pandas as pd
 search_term = input("What product do you want to search for? ")
 
 url = f"https://www.newegg.ca/p/pl?d={search_term}&N=4131"
@@ -38,9 +38,26 @@ for page in range(1, pages + 1):
             pass
 
 sorted_items = sorted(items_found.items(), key=lambda x: x[1]['price'])
+try:
+    if sorted_items[0]:
+        print('Y')
+except:
+    print('empty')
 
+scraped = pd.DataFrame()
+name = []
+price = []
+link = []
 for item in sorted_items:
-    print(item[0])
-    print(f"${item[1]['price']}")
-    print(item[1]['link'])
-    print("-------------------------------")
+
+    name.append(item[0])
+    price.append(f"${item[1]['price']}")
+    link.append(item[1]['link'])
+
+name_series = pd.Series(name, name='Name')
+price_series = pd.Series(price, name='Price')
+link_series = pd.Series(link, name='Link')
+
+# Concatenate series horizontally
+scraped = pd.concat([name_series, price_series, link_series], axis=1)
+print(scraped)
